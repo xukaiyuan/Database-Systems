@@ -9,7 +9,7 @@
    <input type="submit" name="submit" value="Submit"> 
 </form>
 
-
+<table border="1">
 <?php
 //initialization
 $db_host = 'localhost';
@@ -33,18 +33,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
 	$field_info_arr = $result->fetch_fields();
 	
+	$c = 1;
 	while($row = $result->fetch_assoc()){
 		//choose attributes
 	    #echo $row['id'];
 	    #echo $row['last_name'];
-	    echo $row[count($row)];
-	    echo  "<br />";
+	    #echo $row[count($row)];
+	    #echo  "<br />";
+	    //
+	    if($c==1){
+	    	$c = $c + 1;
+	    	echo '<tr>';
+	    	foreach($row as $x=>$x_value){
+
+	    		echo '<td style="font-weight:bold">'.$x.'</td>';
+	    		//echo ' ';
+	    	}
+	    	echo '</tr>';
+	    	//echo  "<br />";
+	    	
+	    }
+	    echo '<tr>';
 	    foreach($row as $x=>$x_value) {
   			//echo $x; 
-  			echo $x_value;
-  			echo ' ';
   			
+  			echo '<td>'.$x_value.'</td>';
+  			//echo ' ';
 		}
+		//echo  "<br />";
+		echo '</tr>';
+		
 	}
 	//echo $result;
 	
@@ -61,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
 ?>
 
-
+</table>
 
 </body>
 </html>
