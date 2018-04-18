@@ -18,7 +18,7 @@ CREATE TABLE scooter(
 	scooter_id				char(5) NOT NULL,
 		--scooter identifier which is the primary key, range from 0 to 10000
 	flag					char(1) NOT NULL,
-		--flag to reflect the status, which shouldn't be null
+		--flag to reflect the status, which shouldn't be null and can be 0, 1, 2 which represents offline, online and lost, respectively
 	home_location			varchar(20) NOT NULL,
 		--location information which shouldn't be null
 	PRIMARY KEY(scooter_id)
