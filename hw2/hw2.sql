@@ -8,10 +8,10 @@ order by highway DESC, area DESC limit 20;
 
 -- part 1(b)
 -- join method
-select highway, count(count) / 365 as percentage
+select highway, area, count(count) / 365 as percentage
 from
 (
-	select a.highway as highway, date(a.reported) as count from
+	select a.highway as highway, a.area as area, date(a.reported) as count from
 
 	caltrans a join caltrans b 
 
@@ -19,21 +19,21 @@ from
 
 	a.text like "%closed%" and (b.text like "%snow%" or b.text like "%winter%")
 
-	group by a.highway, date(a.reported)
+	group by a.highway, a.area, date(a.reported)
 
-)as result group by highway order by percentage DESC limit 5;
+)as result group by highway, area order by percentage DESC limit 5;
 
 -- not join method
-select highway, count(count) / 365 as percentage
+select highway, area, count(count) / 365 as percentage
 from 
 (
-	select highway, date(reported) as count from caltrans as tmp
+	select highway, area, date(reported) as count from caltrans as tmp
 
 	where text like "%closed%" and (text like "%snow%" or text like "%winter%")
 
-	group by highway, date(reported)
+	group by highway, area, date(reported)
 
-)as result group by highway order by percentage DESC limit 5;
+)as result group by highway, area order by percentage DESC limit 5;
 
 
 -- part 3(a)
@@ -44,7 +44,6 @@ select a.trip_id, a.user_id, 1 + 0.15 * ceil(ifnull((unix_timestamp(b.time) - un
 
 
 -- part 3(c)
-
 select user_id, sum(daily_total) as monthly_total
 from
 (	

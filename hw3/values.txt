@@ -1,0 +1,54 @@
+mysql> select distinct value from keyvalues;
++----------------------+
+| value                |
++----------------------+
+| bonded-by-product    |
+| project-ownership    |
+| friends-outside-work |
+| feedback             |
+| impressive-teammates |
+| personal-growth      |
+| fast-paced           |
+| lunch-together       |
+| remote-ok            |
+| customer-first       |
+| many-hats            |
+| quality-code         |
+| open-communication   |
+| internal-promotion   |
+| retention            |
+| product-driven       |
+| worklife-balance     |
+| light-meetings       |
+| flex-hours           |
+| inclusive            |
+| psychologically-safe |
+| diverse-team         |
+| eq-iq                |
+| parents              |
+| open-source          |
+| continuous-delivery  |
+| engages-community    |
+| cross-dep            |
+| safe-env             |
+| rapid-growth         |
+| new-tech             |
+| creative-innovative  |
+| data-driven          |
+| flat-organization    |
+| engineering-driven   |
+| agile-dev            |
+| pair-programs        |
+| team-oriented        |
+| internal-mobility    |
+| physical-wellness    |
+| benefit-company      |
+| interns              |
+| junior-devs          |
+| risk-taking          |
+| good-beer            |
+| office-layout        |
++----------------------+
+46 rows in set (0.00 sec)
+
+mysql> tee values.rtf
