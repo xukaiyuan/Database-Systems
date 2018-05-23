@@ -1,4 +1,4 @@
-/*
+tee matrix.txt
 #part 1
 select 
 	company,
@@ -51,7 +51,7 @@ select
 from
 	keyvalues
 group by company;
-*/
+
 
 #part 2
 tee part_2.txt
