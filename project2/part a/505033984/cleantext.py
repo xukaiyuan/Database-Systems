@@ -9,9 +9,14 @@ import string
 import argparse
 import json
 import re
+import sys
+import os
+from bz2 import decompress
 
 __author__ = ""
 __email__ = ""
+
+
 
 # Some useful data.
 _CONTRACTIONS = {
@@ -113,6 +118,7 @@ Some clarification about the difference between our outputs and sample outputs:
 4. Typos are treated as are input intentionally, that is, typos like 'text(s' will be parsed to 'text s'.
 5. We have not found a way to treat chinese punctuations, so they are filtered in most cases.
 6. There are sometimes one extra space in the end of some parsed texts (does not influence the following processing).
+7. Cases like “on…..power” in sample-output.txt are confusing and we parsed it into “on power” since we think that taking it into a whole doesn’t make sense.
 '''
 
 def text2parsed(text):
@@ -319,17 +325,32 @@ if __name__ == "__main__":
 
     # test = "I'm* *afraid http://x I [can't explainhttps://x myself, sir .Because[x](a)s I [am](h)x [not](s) myself, [you see?"
     test = "As a reminder, this subreddit [is for civil discussion.](/r/politics/wiki/index#wiki_be_civil)\n\nIn general,"
-    result = sanitize(test)
+    # result = sanitize(test)
     # print(result[0])
     # print(result[1])
     # print(result[2])
     # print(result[3])
 
 
+    decompress_flag = False
 
     # limit = 10
+    jsonname = ''
+    if(decompress_flag):
+        jsonname = 'comments-minimal.json'
+        for dirpath, dirname, files in os.walk('./'):
+            for filename in files:
+                if filename.endswith('.json.bz2'):
+                    filepath = os.path.join(dirpath, filename)
+                    newfilepath = os.path.join(dirpath, filename[:-4])
+                    with open('newfilepath', 'wb') as new_file, bz2.BZ2File(filepath, 'rb') as file:
+                        for data in iter(lambda : file.read(100 * 1024), b''):
+                            new_file.write(data)  
+    else:
+        jsonname = "sample-comments.json"
+
     out = open("out.txt", "w")
-    with open("sample-comments.json") as f:
+    with open(jsonname) as f:
         for line in f:
             # limit-=1
             data = json.loads(line)
